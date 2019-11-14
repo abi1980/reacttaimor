@@ -1,5 +1,6 @@
 import React from 'react';
 import Childcomp from '../childcomp/Childcomp';
+import Testprops from '../testprops/Testprops';
 import './Testcomp.css';
 
 class Testcomp extends React.Component {
@@ -23,7 +24,9 @@ class Testcomp extends React.Component {
             <h2>Main Trainer :{this.state.trainer}</h2>
             <h2>Main Developer :{this.state.dev}</h2>
             <button onClick={this.handleClick.bind(this)} className="button">Test Click</button>
-            <Childcomp />
+            <Childcomp trainer={this.state.trainer} />
+            <br />
+            <Testprops />
             <br />
         </div>;
     }
