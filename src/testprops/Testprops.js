@@ -39,7 +39,7 @@ class Testprops extends Component {
                 <Greeting greeting="test" />
                 <br />
 
-                <button onClick={this.togglePopup} type="button" className="button">Toggle Show</button>
+                <button onClick={this.togglePopup} type="button" className="button">Show POPUP</button>
 
                 {this.state.showPopup ?
                     <Popup text='Click "Close Button" to hide popup' closePopup={this.togglePopup} /> : null
@@ -48,6 +48,8 @@ class Testprops extends Component {
         );
     }
 }
+
+//passing the props value in the component {greeting}
 const Greeting = ({ greeting }) => <h1>{greeting}</h1>;
 export default Testprops;
 // closePopup={this.togglePopup.bind(this)}
