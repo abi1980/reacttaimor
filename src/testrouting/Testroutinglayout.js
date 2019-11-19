@@ -76,5 +76,10 @@ function Contactroute() {
 }
 
 function Profileroute() {
-    return <h2>Profile {new URLSearchParams(useLocation().search).get("name")}</h2>;
+    return (
+        <div>
+            <h2>Profile</h2>
+            <p> {new URLSearchParams(useLocation().search).get("name")}</p>
+        </div>
+    );
 }
