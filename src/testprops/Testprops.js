@@ -35,7 +35,7 @@ class Testprops extends Component {
                 <br />
                 <div>{this.state.isShow ? <div>{this.state.greeting.sender}</div> : null}</div>
                 <br />
-                <button onClick={this.toggleShow} type="button" className="button">Toggle Show</button>
+                <button onClick={this.toggleShow} type="button" className="button">Toggle Content</button>
                 <Greeting greeting="test" />
                 <br />
 
