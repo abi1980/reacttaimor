@@ -1,12 +1,14 @@
 import React from 'react';
 import Testcomp from './testcomp/Testcomp';
+import RouteActiveExample from './testrouting/Testroutinglayout';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Testcomp />
+      <RouteActiveExample />
+      {/* <Testcomp />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -20,7 +22,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }

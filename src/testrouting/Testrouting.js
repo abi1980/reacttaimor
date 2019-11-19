@@ -48,7 +48,7 @@ export default function RouteConfigExample() {
     return (
         <Router>
             <div>
-                <ul className="horizontal">
+                <ul className="nav">
                     <li>
                         <Link to="/">Home</Link>
                     </li>
