@@ -29,7 +29,7 @@ class Testcomp extends React.Component {
             <h1>This is my Test Component.</h1>
             <h2>Main Trainer :{this.state.trainer}</h2>
             <h2>Main Developer :{this.state.dev}</h2>
-            <button onClick={this.handleClick.bind(this)} className="button">Test Click</button>
+            <button onClick={this.handleClick.bind(this)} className="button">Change Content</button>
             <Childcomp trainer={this.state.trainer} />
             <br />
             <Testprops />

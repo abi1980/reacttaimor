@@ -8,7 +8,10 @@ function App() {
   return (
     <div className="App">
       <RouteActiveExample />
-      {/* <Testcomp />
+      <br />
+      <hr />
+      <br />
+      <Testcomp />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -22,7 +25,7 @@ function App() {
         >
           Learn React
         </a>
-      </header> */}
+      </header>
     </div>
   );
 }
