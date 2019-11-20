@@ -1,6 +1,7 @@
 import React from 'react';
 import Testcomp from './testcomp/Testcomp';
 import RouteActiveExample from './testrouting/Testroutinglayout';
+import Signup from './signuplogin/Signup';
 import logo from './logo.svg';
 import './App.css';
 
@@ -8,6 +9,10 @@ function App() {
   return (
     <div className="App">
       <RouteActiveExample />
+      <br />
+      <hr />
+      <br />
+      <Signup />
       <br />
       <hr />
       <br />
