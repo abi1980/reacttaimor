@@ -1,3 +1,4 @@
+/* https://codesandbox.io/embed/x8omy0p9z */
 import React, { useState } from "react";
 
 /* Import Components */
@@ -6,8 +7,11 @@ import CheckBox from "./formsparts/CheckBox";
 import Input from "./formsparts/Input";
 import Select from "./formsparts/Select";
 import TextArea from "./formsparts/TextArea";
+import Listsignup from "./Listsignup";
 
 import "./signuplogin.css";
+// import { arrayExpression } from "@babel/types";
+// import { isArray } from "util";
 
 class Signup extends React.Component {
     constructor(props) {
@@ -22,11 +26,13 @@ class Signup extends React.Component {
                 age: "",
                 gender: "",
                 skills: [],
-                about: ""
+                about: "",
+                phone: "",
             },
 
             genderOptions: ["Male", "Female", "Others"],
-            skillOptions: ["Programming", "Development", "Design", "Testing"]
+            skillOptions: ["Programming", "Development", "Design", "Testing"],
+            users: []
         };
         /*
         this.handleTextArea = this.handleTextArea.bind(this);
@@ -41,9 +47,12 @@ class Signup extends React.Component {
         */
     }
 
+    /* This lifecycle hook gets executed when the component mounts */
+
     handleInput = e => {
         let value = e.target.value;
         let name = e.target.name;
+        console.log(name, value)
         this.setState(
             prevState => ({
                 newUser: {
@@ -54,6 +63,65 @@ class Signup extends React.Component {
             () => console.log(this.state.newUser)
         );
     }
+
+    handleFullName = e => {
+        let value = e.target.value;
+        this.setState(
+            prevState => ({
+                newUser: {
+                    ...prevState.newUser,
+                    name: value
+                }
+            }),
+            () => console.log(this.state.newUser)
+        );
+    }
+
+    handleAge = e => {
+        let value = e.target.value;
+        this.setState(
+            prevState => ({
+                newUser: {
+                    ...prevState.newUser,
+                    age: value
+                }
+            }),
+            () => console.log(this.state.newUser)
+        );
+    }
+
+    handleTextArea = e => {
+        console.log("Inside handleTextArea");
+        let value = e.target.value;
+        this.setState(
+            prevState => ({
+                newUser: {
+                    ...prevState.newUser,
+                    about: value
+                }
+            }),
+            () => console.log(this.state.newUser)
+        );
+    }
+
+    handleCheckBox = e => {
+        const newSelection = e.target.value;
+        let newSelectionArray;
+
+        if (this.state.newUser.skills.indexOf(newSelection) > -1) {
+            newSelectionArray = this.state.newUser.skills.filter(
+                s => s !== newSelection
+            );
+        } else {
+            newSelectionArray = [...this.state.newUser.skills, newSelection];
+        }
+
+        this.setState(prevState => ({
+            newUser: { ...prevState.newUser, skills: newSelectionArray }
+        }));
+        console.log("skilssssssssss", this.state.newUser.skills);
+    }
+
 
     handleSubmit = e => {
         e.preventDefault();
@@ -66,68 +134,170 @@ class Signup extends React.Component {
             alert('Please add your email');
         }
 
-        alert(this.state.newUser.name);
+        // this.setState({
+        //     name: this.userData.name,
+        //     email: this.userData.email,
+        //     phone: this.userData.phone
+        // })
+
+        // if (isArray(this.users)) {
+        //     this.users.push(this.state.newUser);
+        // } else {
+        //     this.users = this.state.newUser;
+        // }
+
+        let storage = JSON.parse(localStorage.getItem('ud')) || [];
+        storage.push(this.state.newUser);
+        localStorage.setItem('ud', JSON.stringify(storage));
+
+        //this.users.push(this.state.newUser);
+        //localStorage.setItem('test', JSON.stringify(this.users));
+
+        //console.log("Test ", this.state.newUser.email);
+        //alert(this.state.newUser.name);
+        //this.setState({ newUser: storage });
     }
+
+    //Testing Life Cycle for React Start
+    componentDidMount() {
+        this.userData = JSON.parse(localStorage.getItem('user'));
+        //alert(this.userData);
+        if (localStorage.getItem('user')) {
+            this.setState({
+                name: this.userData.name,
+                email: this.userData.email,
+                phone: this.userData.phone,
+                password: this.userData.password,
+                repassword: this.userData.repassword,
+                age: this.userData.age,
+                gender: this.userData.gender,
+                skills: this.userData.skills,
+                about: this.userData.about,
+            })
+        } else {
+            this.setState({
+                name: "",
+                email: "",
+                password: "",
+                repassword: "",
+                age: "",
+                gender: "",
+                skills: [],
+                about: "",
+                phone: ""
+            })
+        }
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        localStorage.setItem('user', JSON.stringify(nextState.newUser));
+    }
+    //Testing Life Cycle for React End
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <Input
-                    inputType={"text"}
-                    name={"name"}
-                    title={"Name"}
-                    value={this.state.newUser.name}
-                    placeholder={"Enter your Name"}
-                    handleChange={this.handleInput}
-                />
-                <Input
-                    inputType={"text"}
-                    name={"email"}
-                    title={"Email"}
-                    value={this.state.newUser.email}
-                    placeholder={"Enter your Email"}
-                    handleChange={this.handleInput}
-                />
-                <Input
-                    inputType={"password"}
-                    name={"password"}
-                    title={"Password"}
-                    value={this.state.newUser.password}
-                    placeholder={"Enter your Password"}
-                    handleChange={this.handleInput}
-                />
-                <Input
-                    inputType={"password"}
-                    name={"re-password"}
-                    title={"Confirm Password"}
-                    value={this.state.newUser.repassword}
-                    placeholder={"Re enter your Password"}
-                    handleChange={this.handleInput}
-                />
-                <Input
-                    inputType={"number"}
-                    name={"age"}
-                    title={"Age"}
-                    value={this.state.newUser.age}
-                    placeholder={"Enter your age"}
-                    handleChange={this.handleInput}
-                />
-                {/* <label>
+            <div>
+                <Listsignup />
+                <form onSubmit={this.handleSubmit}>
+                    <Input
+                        inputType={"text"}
+                        name={"name"}
+                        title={"Name"}
+                        value={this.state.newUser.name}
+                        placeholder={"Enter your Name"}
+                        handleChange={this.handleInput}
+                    />
+                    <Input
+                        inputType={"text"}
+                        name={"email"}
+                        title={"Email"}
+                        value={this.state.newUser.email}
+                        placeholder={"Enter your Email"}
+                        handleChange={this.handleInput}
+                    />
+                    <Input
+                        inputType={"password"}
+                        name={"password"}
+                        title={"Password"}
+                        value={this.state.newUser.password}
+                        placeholder={"Enter your Password"}
+                        handleChange={this.handleInput}
+                    />
+                    <Input
+                        inputType={"password"}
+                        name={"repassword"}
+                        title={"Confirm Password"}
+                        value={this.state.newUser.repassword}
+                        placeholder={"Re enter your Password"}
+                        handleChange={this.handleInput}
+                    />
+                    <Input
+                        inputType={"number"}
+                        name={"age"}
+                        title={"Age"}
+                        value={this.state.newUser.age}
+                        placeholder={"Enter your age"}
+                        handleChange={this.handleInput}
+                    />
+                    <Input
+                        inputType={"text"}
+                        name={"phone"}
+                        title={"Phone"}
+                        value={this.state.newUser.phone}
+                        placeholder={"Enter your Phone"}
+                        handleChange={this.handleInput}
+                    />
+                    <Select
+                        title={"Gender"}
+                        name={"gender"}
+                        options={this.state.genderOptions}
+                        value={this.state.newUser.gender}
+                        placeholder={"Select Gender"}
+                        handleChange={this.handleInput}
+                    />
+                    <CheckBox
+                        title={"Skills"}
+                        name={"skills"}
+                        options={this.state.skillOptions}
+                        selectedOptions={this.state.newUser.skills}
+                        handleChange={this.handleCheckBox}
+                    />
+                    <TextArea
+                        title={"About you."}
+                        rows={10}
+                        value={this.state.newUser.about}
+                        name={"about"}
+                        handleChange={this.handleTextArea}
+                        placeholder={"Describe your experience and skills"}
+                    />
+                    <Button
+                        action={this.handleFormSubmit}
+                        type={"primary"}
+                        title={"Submit"}
+                        style={buttonStyle}
+                    />
+                    <Button
+                        action={this.handleClearForm}
+                        type={"secondary"}
+                        title={"Clear"}
+                        style={buttonStyle}
+                    />
+                    {/* <label>
                     Name:
                     <input type="text" ref={(input) => this.input = input} />
                 </label> */}
-                <input type="submit" value="Submit" />
-            </form>
+                    < input type="submit" value="Submit" />
+                </form>
+            </div>
         );
     }
 }
 
+const buttonStyle = {
+    margin: "10px 10px 10px 10px"
+};
+
 export default Signup;
-
-
-
-
-
 
 /*
 import React, { useState } from "react";
