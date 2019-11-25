@@ -3,6 +3,7 @@ import React from "react";
 const CheckBox = props => {
     return (
         <div className="form-group">
+            {console.log("----props:", props)}
             <label for={props.name} className="form-label">
                 {props.title}
             </label>
